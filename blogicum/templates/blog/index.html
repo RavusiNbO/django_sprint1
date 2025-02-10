@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Лента записей</title>
+{% endblock %}
+{% block content %}
+    <main>
+      <div class="container py-5">
+        <h1>Лента записей</h1>                        
+        <!-- Перебираем в цикле все посты -->
+         {% for i in context %}
+        <hr>
+        <article>
+          <ul>
+            <li>
+              {{ i.location }}             
+            </li>
+            <li>
+              {{ i.date }}
+            </li>
+            <li>
+              Категория: <a href="{% url 'blog:category_posts' i.category %}">{{ i.category }}</a>
+            </li>
+          </ul>          
+          <!-- Первые 10 слов -->
+          <p>
+            {{ i.text|truncatewords:10 }}
+          </p>
+          <a href="{% url 'blog:post_detail' i.id %}">Читать полный текст</a>
+        </article>
+        {% endfor %}             
+      </div>
+    </main>
+{% endblock %}
